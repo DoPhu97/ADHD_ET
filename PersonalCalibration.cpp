@@ -1,19 +1,18 @@
-﻿#include "PersonalCalibration.h"
+#include "PersonalCalibration.h"
 #include <ceres/ceres.h>
 #include <iostream>
 
 std::vector<std::vector<double>> combined_calibrate(
 	const std::vector<PupilGlint2>& calibData,
 	const std::vector<Vec3>& targets,
-	const EyeParameter& eyePar,
 	const PinholeCameraModel& camera,
 	const VecPair3& lights)
 {
 	// Khởi tạo tham số cần tối ưu
 	double kq_left = 600;
 	double kq_right = 600;
-	double alpha = 3;
-	double beta = 3;
+	double alpha = deg_to_rad(4.65);
+	double beta = deg_to_rad(1.5);
 	double R = 7.8;
 	double K = 4.2;
 
@@ -42,9 +41,9 @@ std::vector<std::vector<double>> combined_calibrate(
 	problem.SetParameterLowerBound(&beta, 0, deg_to_rad(0));
 	problem.SetParameterUpperBound(&beta, 0, deg_to_rad(5));
 	problem.SetParameterLowerBound(&R, 0, 3);
-	problem.SetParameterUpperBound(&R, 0, 10);
+	problem.SetParameterUpperBound(&R, 0, 7);
 	problem.SetParameterLowerBound(&K, 0, 3);
-	problem.SetParameterUpperBound(&K, 0, 10);
+	problem.SetParameterUpperBound(&K, 0, 5);
 	
 	// Cấu hình solver
 	ceres::Solver::Options options;
