@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "GazeEstimationTypes.h"
 #include "OneCameraSpherical.h"
 #include "ceres/ceres.h"
@@ -41,7 +41,7 @@ public:
 		VecPair3 glints_wcs;
 		glints_wcs.left = _camera.ics_to_wcs(_pupilGlint2.glints.left);
 		glints_wcs.right = _camera.ics_to_wcs(_pupilGlint2.glints.right);
-
+		
 		// Tính toán điểm phản xạ q và tâm giác mạc
 		Vec3 q1 = calculate_q(kq_left[0], _camera.position, glints_wcs.left);
 		Vec3 q2 = calculate_q(kq_right[0], _camera.position, glints_wcs.right);
@@ -71,6 +71,5 @@ public:
 std::vector<std::vector<double>> combined_calibrate(
 	const std::vector<PupilGlint2>& calibData,
 	const std::vector<Vec3>& targets,
-	const EyeParameter& eyePar,
 	const PinholeCameraModel& camera,
 	const VecPair3& lights);
