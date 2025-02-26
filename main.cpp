@@ -1,4 +1,4 @@
-﻿// Gaze Estimation for one camera and two light sources
+// Gaze Estimation for one camera and two light sources
 // All equations are from 
 // Remote, Non - Contact Gaze Estimation with Minimal Subject Cooperation
 // Guestrin, Elias Daniel
@@ -39,8 +39,8 @@ void readFile(const std::string &filename, std::vector<DataRow> &data) {
 
  int main(int argc, char** argv)
 {
-	 google::InitGoogleLogging(argv[0]);  // Khởi tạo glog
-	 //Read data from camera 1 (after undistortion)
+	 google::InitGoogleLogging(argv[0]);
+	 
 	 std::vector<DataRow> data;
 	 readFile("gaze_data.txt", data);
 	 VecPair3 lights;//cm
@@ -55,7 +55,7 @@ void readFile(const std::string &filename, std::vector<DataRow> &data) {
 	camera.pixel_size_x = 0.0055;//mm
 	camera.pixel_size_y = 0.0055;
 	camera.effective_focal_length = sqrt(3080.82181401356*3080.82181401356 +
-		3043.17471172823*3043.17471172823)*camera.pixel_size_x;
+		3043.17471172823*3043.17471172823)*camera.pixel_size_x/10;
 	
 	//Scene parameters to get poi in pixels
 	//const double display_surface_size_x = ;
@@ -66,15 +66,7 @@ void readFile(const std::string &filename, std::vector<DataRow> &data) {
 	const double screen_pixel_size_y = 1200;
 	const Vec3 screen_center = Vec3(0.359697691901012, -182.304785904820, -124.866720047268);
 
-	EyeParameter EyePar;
-	EyePar.alpha = deg_to_rad(3);
-	EyePar.beta = deg_to_rad(1.5);
-	EyePar.R = 7.8;//mm
-	EyePar.K = 4.2;
-	EyePar.n1 = 1.3375;
-	EyePar.n2 = 1;
-	EyePar.D = 5.3;
-
+	
 	std::vector<Vec3> targets;
 	std::vector<PupilGlint2> calibData;
 	PupilGlint2 pupiGlint;
@@ -95,7 +87,7 @@ void readFile(const std::string &filename, std::vector<DataRow> &data) {
 	}
 	*/
 	std::vector<std::vector<double>> results = 
-		combined_calibrate(calibData, targets, EyePar, camera, lights);
+		combined_calibrate(calibData, targets, camera, lights);
 	
 	
 	// Xuất kết quả
