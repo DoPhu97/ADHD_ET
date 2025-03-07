@@ -28,12 +28,12 @@ inline double dot(const Vec3& a, const Vec3& b)
 
 inline double deg_to_rad(double a)
 {
-	return a * 3.141592653589793 / 180.;
+	return a * M_PI / 180.;
 }
 
 inline double rad_to_deg(double a)
 {
-	return a * 180./ 3.141592653589793;
+	return a * 180./ M_PI;
 }
 
 inline double squared_length(const Vec3& a)
