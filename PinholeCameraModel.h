@@ -1,7 +1,6 @@
 #pragma once
 #include "MathTypes.h"
-
-
+#include <iostream>
 class PinholeCameraModel {
 
 	Mat3x3 actual_rotation_matrix;
@@ -30,7 +29,7 @@ public:
 		pixel_size_y = 0;
 		effective_focal_length = 0;
 	}
-
+	
 	/// Transforms the given vector in this camera's image coordinate system to 
 	/// the camera coordinate system
 	Vec3 ics_to_ccs(const Vec2& pos) const
@@ -38,8 +37,7 @@ public:
 		return Vec3(
 			(pos[0] - principal_point_x) * pixel_size_x,
 			(pos[1] - principal_point_y) * pixel_size_y,
-			-effective_focal_length
-		);
+			-effective_focal_length * pixel_size_x);
 	}
 
 	Vec3 ccs_to_wcs(const Vec3& pos) const
