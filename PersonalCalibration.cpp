@@ -65,7 +65,6 @@ std::vector<std::vector<double>> calibrate(
 
     ceres::Problem problem;
     
- 
 
     for (int i = 0; i < n; ++i) {
         const auto& group = calibData[i];
@@ -94,9 +93,9 @@ std::vector<std::vector<double>> calibrate(
     problem.SetParameterLowerBound(&K, 0, 4.0);
     problem.SetParameterUpperBound(&K, 0, 5.0);
     for (int i = 0; i < n; ++i) {
-        problem.SetParameterLowerBound(&k_left[i], 0, 400.0);
+        problem.SetParameterLowerBound(&k_left[i], 0, 300.0);
         problem.SetParameterUpperBound(&k_left[i], 0, 900.0);
-        problem.SetParameterLowerBound(&k_right[i], 0, 400.0);
+        problem.SetParameterLowerBound(&k_right[i], 0, 300.0);
         problem.SetParameterUpperBound(&k_right[i], 0, 900.0);
     }
 

@@ -23,9 +23,14 @@ public:
 	UnifiedCalibrationFunctor(const PupilGlint2& pupilGlint, const Vec3& target,
 		const PinholeCameraModel& camera, const VecPair3& lights,
 		double n1, double n2, const Vec3& screen_center, const Mat3x3& matrix);
-	bool operator()(const double* const alpha, const double* const beta,
-		const double* const R, const double* const K,
-		const double* const k_left, const double* const k_right,
+
+	bool operator()(
+		const double* const alpha, 
+		const double* const beta,
+		const double* const R, 
+		const double* const K,
+		const double* const k_left, 
+		const double* const k_right,
 		double* residual) const;
 };
 
